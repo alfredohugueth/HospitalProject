@@ -19,6 +19,7 @@
   "homepage": "https://github.com/alfredohugueth/HospitalProject#readme",
   "dependencies": {
     "consolidate": "^0.16.0",
+    "dotenv": "^8.2.0",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "swig": "^1.4.2"
