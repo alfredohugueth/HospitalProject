@@ -3,25 +3,23 @@ const mysql = require('mysql');
 const app = express();
 var cons = require('consolidate');
 const path = require('path');
-app.engine('html',cons.swig);
-app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.json({limit:'1mb'}));
 require('dotenv').config();
 myConnection = require('express-myconnection');
 
-//app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 // Base de datos
 
 
-/*app.use(myConnection(mysql, {
+app.use(myConnection(mysql, {
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASS,
 	port: 3306,
 	database: process.env.DB_DB,
-  }, 'single')); */
+  }, 'single')); 
   // Como lo hace alfredo
   const database = mysql.createConnection(
 	  {
@@ -53,10 +51,10 @@ myConnection = require('express-myconnection');
 
 
 // rutas
-//const customerRoutes = require('./routes/customer');
-
-// routes
-//app.use('/', customerRoutes);
+const customerRoutes = require('./routes/customer');
+const admin = process.env.admin;
+ 
+app.use(admin, customerRoutes);
 app.get('/',(req,res)=>{
 	res.render('login');
 })
