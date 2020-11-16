@@ -29,6 +29,23 @@ controller.save = (req, res) => {
   })
 };
 
+controller.savecaso = (req, res) => {
+  const data = req.body;
+  console.log(req.body)
+  req.getConnection((err, connection) => {
+    
+    connection.query("INSERT INTO registro_casos set ?", [data], (err, customer) => {
+      if (err){
+        res.json(err)
+      }
+      
+      console.log(customer)
+      res.redirect('/');
+    })
+  })
+};
+
+
 controller.edit = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {

@@ -15,12 +15,14 @@ app.set('view engine', 'ejs');
 // Base de datos
 
 
+
+
 app.use(myConnection(mysql, {
-	host: '',
-	user: '',
-	password: '',
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS,
 	port: 3306,
-	database: ''
+	database: process.env.DB_DB,
   }, 'single'));
 
   app.use(express.urlencoded({extended: false}));
@@ -28,7 +30,7 @@ app.use(myConnection(mysql, {
 
 
 // rutas
-const customerRoutes = require('./routes/customer');
+const customerRoutes = require('./routes/inicio');
 
 // routes
 app.use('/', customerRoutes);
