@@ -1,4 +1,5 @@
 
+
 let Usuario;
 let Contraseña;
 let cont = 0;
@@ -22,21 +23,22 @@ formLogin.addEventListener('submit',event =>{
         // 'Content-Type': 'application/x-www-form-urlencoded',
                         }
 };
+    if(cont == 0){
     enviar(opciones);
     cont = cont+1;
-
+    }else{
+        cont = cont+1;
+    }
+   
  
 });
 
 function enviar(opciones){
     fetch('/',opciones).then((response) => response.json())
     .then((json) => {
-        console.log(json);
-        //Verificamos que es lo que llega del server, y redireccionamos.
-        let nombreRedi = json.rol;
-        let direccion = "http://192.168.20.33:40000/";
-        let nuevdireccion = direccion+nombreRedi;
-        window.location.replace(nuevdireccion);
+    console.log(json);
+    let direccion = json.roles;
+    window.location.replace(direccion);
     });
 }
     

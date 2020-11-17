@@ -54,11 +54,12 @@ app.use(myConnection(mysql, {
 const customerRoutes = require('./routes/customer');
 const admin = process.env.admin;
  
-app.use(admin, customerRoutes);
+app.use('/', customerRoutes);
+/*
 app.get('/',(req,res)=>{
 	res.render('login');
-})
-
+}) */
+/*
 app.post('/',function(req,res){
 	var rol ;
 	console.log(req.body);
@@ -98,6 +99,7 @@ app.post('/',function(req,res){
 		console.log("Hora de re direccionar");
 		res.json({rol: rol});
 });
+*/
 app.get('/ayudante', (req,res)=>{
 	res.render('ayudante');
 });
@@ -105,7 +107,7 @@ app.get('/medico',(req,res) =>{
 	res.render('medico');
 }); 
 //res.json({mensaje : "todo parece bien"});
-});
+
 // Aca iria la creacion de la info de la base de datos.
 
 app.on('listening', () => {
