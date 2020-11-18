@@ -35,6 +35,10 @@ const customerRoutes = require('./routes/inicio');
 // routes
 app.use('/', customerRoutes);
 
+app.get('/geomap', (request, response) => {
+    response.sendFile(path.join(__dirname + '/views/mapgeo.html'));
+});
+
 
 app.post('/',function(req,res){
     console.log(req);
