@@ -100,6 +100,9 @@ app.post('/',function(req,res){
 		res.json({rol: rol});
 });
 */
+app.get('/geomap', (request, response) => {
+    response.render('mapgeo');
+});
 app.get('/ayudante', (req,res)=>{
 	res.render('ayudante');
 });
