@@ -8,7 +8,7 @@ router.post('/addcaso', customerController.savecaso);
 router.get('/update/:id', customerController.edit);
 router.post('/update/:id', customerController.update);
 router.get('/delete/:id', customerController.delete);
-router.get('/', customerController.list);
+//router.get('/', customerController.list);
 router.post('/', customerController.sendinfo);
 router.get('/AYUDANTE',customerController.ayudante);
 router.get('/MEDICO',customerController.medico);

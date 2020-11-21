@@ -37,7 +37,8 @@ controller.sendinfo = (req,res) =>{
 		    if(condi == 0){
 			  // usuario o contraseña incorrectas
 			  console.log("Usuario o contraseña incorrectos");
-			  res.redirect('/');
+        //res.redirect('/');
+        res.json({roles: '/'});
     }else{
 			console.log("Entramos a condicional");
       rol = result[0].rol;
