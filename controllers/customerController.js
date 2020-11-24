@@ -171,6 +171,32 @@ controller.savecaso = (req, res) => {
     })
   })
 };
+controller.gestionarcas = (req,res) =>{
+  res.render('gestionar');
+}
+controller.busqueda = (req,res) =>{
+  // Revisamos en el servidor la informacion que hemos recibido.
+  console.log(req.body.busqueda);
+  const busq = req.body.busqueda;
+  req.getConnection((err, connection) =>{
+    connection.query("SELECT * from actualiza_estado where codigo_caso = ? or cedula = ? or nombre = ?",[busq,busq,busq],(err,rows) =>{
+      if(err){
+        res.json(err);
+      }
+      else{
+      console.log(rows.length);
+      const tamarow = rows.length;
+      if(tamarow == 0){  // Es decir que no hay ningun valor en la base de datos con esta info
+        res.redirect('/GESTIONAR');
+      }else{
+        // Aca va a posisionarse el siguiente paso. 
+      res.json(rows);
+      }
+      }
+    })
+  })
+
+}
 
 module.exports = controller;
 

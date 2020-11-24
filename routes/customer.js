@@ -13,6 +13,8 @@ router.post('/', customerController.sendinfo);
 router.get('/AYUDANTE',customerController.ayudante);
 router.get('/MEDICO',customerController.medico);
 router.get('/ADMINISTRADOR',customerController.list);
+router.get('/GESTIONAR',customerController.gestionarcas);
+router.post('/busqueda',customerController.busqueda);
 
 
 

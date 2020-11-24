@@ -1,0 +1,37 @@
+.busqueda{
+    width: 90%;
+    padding: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    border: 1px solid #0076a3;
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+    font-style: italic;
+
+}
+.botonBusq{
+    position: absolute;
+    padding: 12px;
+    width: 8%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    text-shadow: 0 0 1px #000;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    border-right: 0;
+    background: linear-gradient(#00ADEE,#0078a5);
+    border: 1px solid #0076a3;
+}
+.logo{
+    content: '';
+    display: block;
+    height: 2px;  /*height of icon */
+    width: 2px;  /*width of icon */
+    position: absolute;
+      /*where to replace the icon */
+    top: 0px;
+    left: -40px;
+      /*background */
+    background:url('../images/logohospitalv2.png');
+}
