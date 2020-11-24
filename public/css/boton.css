@@ -24,14 +24,32 @@
     border: 1px solid #0076a3;
 }
 .logo{
-    content: '';
-    display: block;
-    height: 2px;  /*height of icon */
-    width: 2px;  /*width of icon */
-    position: absolute;
+    background:url('../images/logohospitalv2_icon.ico');
+    height: 30px;  /*height of icon */
+    width: 30px;  /*width of icon */
       /*where to replace the icon */
-    top: 0px;
-    left: -40px;
       /*background */
-    background:url('../images/logohospitalv2.png');
+    
+}
+.tabla{
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+
+}
+.tabla thead tr{
+  background-color: #0078a5;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+
+}
+.tabla th,
+.tabla td{
+  padding: 12px 15px;
+}
+
+.tabla tbody tr{
+  border-bottom: 1px solid #dddddd;
 }

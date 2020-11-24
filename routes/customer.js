@@ -15,7 +15,10 @@ router.get('/MEDICO',customerController.medico);
 router.get('/ADMINISTRADOR',customerController.list);
 router.get('/GESTIONAR',customerController.gestionarcas);
 router.post('/busqueda',customerController.busqueda);
-
+router.get('/prueba',customerController.prueba);
+router.get('/infocliente',customerController.pacient);
+router.post('/actualizarEstado',customerController.actualiz);
+router.get('/HistorialUsua',customerController.getdatusuario);
 
 
 /*router.post('/ayudante',customerController.ayudante);
