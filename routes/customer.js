@@ -13,7 +13,7 @@ router.post('/', customerController.sendinfo);
 router.get('/AYUDANTE',customerController.ayudante);
 router.get('/MEDICO',customerController.medico);
 router.get('/ADMINISTRADOR',customerController.list);
-
+router.post('/buscar',customerController.buscar);
 
 
 /*router.post('/ayudante',customerController.ayudante);

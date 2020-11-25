@@ -172,5 +172,37 @@ controller.savecaso = (req, res) => {
   })
 };
 
+
+controller.buscar = (req, res) => {
+console.log(req.body.buscar);
+const busc = req.body.buscar;
+  req.getConnection((err, connection) => {
+    
+    connection.query("SELECT * from registro_casos where codigo_caso = ? or cedula = ? ", [busc,busc], (err, rows) => {
+      if (err){
+        res.json(err)
+      }
+      else{
+      console.log(rows.length);
+      const tamanorow = rows.length;
+      if(tamanorow == 0){
+        res.redirect('/medico2')
+      }else{
+        res.json(rows);
+      }
+      }
+      
+    })
+  })
+};
+
+
+
+
+
+
+
+
+
 module.exports = controller;
 

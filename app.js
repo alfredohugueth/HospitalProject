@@ -109,6 +109,13 @@ app.get('/ayudante', (req,res)=>{
 app.get('/medico',(req,res) =>{
 	res.render('medico');
 }); 
+app.get('/medico2',(req,res) =>{
+	res.render('medico2');
+});
+app.get('/buscar',(req,res) =>{
+	res.render('buscar');
+});
+
 //res.json({mensaje : "todo parece bien"});
 
 // Aca iria la creacion de la info de la base de datos.
