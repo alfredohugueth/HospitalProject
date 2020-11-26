@@ -11,6 +11,7 @@ function initMap() {
 
 function geocodeAddress(geocoder, resultsMap) {
   const address = document.getElementById("address").value;
+  console.log(address);
   geocoder.geocode({ address: address }, (results, status) => {
     if (status === "OK") {
       resultsMap.setCenter(results[0].geometry.location);

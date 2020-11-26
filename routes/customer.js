@@ -15,8 +15,8 @@ router.get('/MEDICO',customerController.medico);
 router.get('/ADMINISTRADOR',customerController.list);
 router.get('/GESTIONAR',customerController.gestionarcas);
 router.post('/busqueda',customerController.busqueda);
-
-
+router.get('/MAPGEO',customerController.mapgeo);
+router.post('/mgbusqueda',customerController.mgbusqueda);
 
 /*router.post('/ayudante',customerController.ayudante);
 router.post('/medico',customerController.medico);

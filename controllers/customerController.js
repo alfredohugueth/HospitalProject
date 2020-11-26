@@ -198,5 +198,36 @@ controller.busqueda = (req,res) =>{
 
 }
 
+controller.mapgeo = (req,res) =>{
+
+    req.getConnection((err, conn) => {
+
+      let sql=`SELECT rc.nombre,rc.apellido, rc.direccion_residencia,ec.idEstado_caso
+FROM registro_casos rc,Estado_caso ec,actualiza_estado ae
+WHERE ae.estado=ec.nmEstado_caso AND rc.cedula=ae.cedula;`;
+    conn.query(sql, (err, rows) => {
+     data0= rows
+    console.log(data0[3]);
+    
+    });
+  conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["NEGATIVO"], (err, rows) => {
+    
+    res.render('mapgeo2', {
+      data4: rows,
+      data0,
+    }) 
+    
+   console.log(rows);
+   
+   });
+});
+
+};
+
+controller.mgbusqueda = (req,res) =>{
+  res.render('mgbusqueda');
+
+};
+
 module.exports = controller;
 
