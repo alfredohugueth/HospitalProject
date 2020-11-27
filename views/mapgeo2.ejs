@@ -182,31 +182,44 @@
                             center: { lat: 10.9932, lng: -74.8049 },
                           });
                           const geocoder = new google.maps.Geocoder();
+                          geocodeAddress(geocoder, map);
+                        }
+
+                        function updateMap() {   
                           document.getElementById("submit").addEventListener("click", () => {
-                            geocodeAddress(geocoder, map);
+                          geocodeAddress(geocoder, map);
                           });
                         }
 
                         function geocodeAddress(geocoder, resultsMap) {
-                          const address = document.getElementById("address").value;
-                          console.log(address);
-                          geocoder.geocode({ address: address }, (results, status) => {
-                            if (status === "OK") {
-                              resultsMap.setCenter(results[0].geometry.location);
-                              new google.maps.Marker({
-                                map: resultsMap,
-                                position: results[0].geometry.location,
-                              });
-                            } else {
-                              alert("Geocode was not successful for the following reason: " + status);
-                            }
-                          });
+                          var nomg="<%= nom %>";
+                          var apeg="<%= ape %>";
+                          var dirg="<%= dir %>";
+                          var noms=nomg.split(",");
+                          var apes=apeg.split(",");
+                          var dirs=dirg.split(",");
+                          var datag=[<%= data %>];
+                          console.log(datag);
+                          for (let i = 0; i < datag.length; i++) {
+                            const address = dirs[i];
+                            console.log(address);
+                            geocoder.geocode({ address: address }, (results, status) => {
+                              if (status === "OK") {
+                                resultsMap.setCenter(results[0].geometry.location);
+                                new google.maps.Marker({
+                                  map: resultsMap,
+                                  position: results[0].geometry.location,
+                                });
+                              } else {
+                                alert("Geocode was not successful for the following reason: " + status);
+                              }
+                            });
+                          }
                         }
                       </script>
                   <div class="col-md-12 col-sm-12 ">
                     <div id="floating-panel">
-                      <input id="address" type="textbox" value="Barranquilla, Atlántico" />
-                      <input id="submit" type="button" value="Geocode" />
+                      <input id="submit" type="button" value="Actualizar" />
                     </div>
                     <div id="map"></div>
                   </div>

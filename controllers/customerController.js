@@ -197,7 +197,6 @@ controller.busqueda = (req,res) =>{
   })
 
 }
-
 controller.mapgeo = (req,res) =>{
 
     req.getConnection((err, conn) => {
@@ -207,19 +206,33 @@ FROM registro_casos rc,Estado_caso ec,actualiza_estado ae
 WHERE ae.estado=ec.nmEstado_caso AND rc.cedula=ae.cedula;`;
     conn.query(sql, (err, rows) => {
      data0= rows
-    console.log(data0[3]);
-    
-    });
-  conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["NEGATIVO"], (err, rows) => {
-    
+     var nom=[];
+     var ape=[];
+     var dir=[];
+     var data=[];
+    console.log(rows.length);
+    //Crear vectores que contendrán los resultados de cada columna
+    for (let i = 0; i < rows.length; i++) {
+        var x = rows[i]; 
+        //Asignarle valores a los vectores por cada respuesta arrojada por el query.
+        nom.push(x.nombre);
+        ape.push(x.apellido);
+        dir.push(x.direccion_residencia);
+        data.push(x.idEstado_caso);
+    }
+    console.log(nom);
+    console.log(ape);
+    console.log(dir);
+    console.log(data);
+    //Llevar vectores al front a través de mapgeo2.
     res.render('mapgeo2', {
-      data4: rows,
-      data0,
-    }) 
+      nom, 
+      ape, 
+      dir, 
+      data,
+      });
     
-   console.log(rows);
-   
-   });
+    })
 });
 
 };
