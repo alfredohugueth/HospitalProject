@@ -20,6 +20,8 @@ router.get('/prueba',customerController.prueba);
 router.get('/infocliente',customerController.pacient);
 router.post('/actualizarEstado',customerController.actualiz);
 router.get('/HistorialUsua',customerController.getdatusuario);
+router.get('/pacientee',customerController.pacientee);
+router.get('/Hpacientee',customerController.Histmed);
 
 
 /*router.post('/ayudante',customerController.ayudante);

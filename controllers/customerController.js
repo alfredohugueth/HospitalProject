@@ -1,6 +1,8 @@
 const controller = {};
 let datoscliente = {};
 let idrec = 0;
+let pacientee = {};
+let Hpacientee = 0;
 controller.login = (req,res) =>{
   res.render('login');
 }
@@ -171,6 +173,7 @@ controller.savecaso = (req, res) => {
       console.log(customer)
       res.redirect('/AYUDANTE');
     })
+    console.log(data);
   })
 };
 controller.gestionarcas = (req,res) =>{
@@ -181,7 +184,7 @@ controller.busqueda = (req,res) =>{
   console.log(req.body.busqueda);
   const busq = req.body.busqueda;
   req.getConnection((err, connection) =>{
-    connection.query("SELECT * from actualiza_estado where codigo_caso = ? or cedula = ? or nombre = ?",[busq,busq,busq],(err,rows) =>{
+    connection.query("SELECT * from registro_casos where codigo_caso = ? or cedula = ? or nombre = ?",[busq,busq,busq],(err,rows) =>{
       if(err){
         res.json(err);
       }
@@ -208,6 +211,9 @@ controller.prueba = (req,res) =>{
 controller.pacient = (req,res) =>{
     res.json({datoscliente});
 }
+controller.pacientee = (req,res) =>{
+  res.json({pacientee});
+}
 
 controller.actualiz = (req,res) =>{
   console.log(req.body);
@@ -222,11 +228,11 @@ controller.actualiz = (req,res) =>{
       if(err){
         console.log(err);
       }else{
-      res.json({mensaje:"Todo bien por ahora"});
+      //res.json({mensaje:"Todo bien por ahora"});
       }
     });
     // Ahora enfoquemonos a acumular los datos de actualizacion de cada usuario.
-
+   
   })
   req.getConnection((err2,connection2)=>{
     connection2.query('insert into estados_UsuariosAlfre (codigo_consulta, fecha_Actual, Estado_Actual) values (?,?,?)',[idrec,fechrec,estrec],(err2,row2) =>{
@@ -237,8 +243,20 @@ controller.actualiz = (req,res) =>{
       }
     })
     //Ahora realizemos query de los datos que son recibidos del usuario para ubicarlos en la pagina en forma de tabla.
-
+    
   })
+  console.log(idrec);
+  req.getConnection((err3,connection3)=>{
+    connection3.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC',[idrec],(err4,rows3) =>{
+      if(err4){
+        console.log(err);
+      }else{
+        res.json({rows3});
+        console.log("Datos de tabla actualizados.");
+      }
+    });
+  });
+
 }
 controller.getdatusuario = (req,res) =>{
   // Realizamos el en caso de que se haya digitado algun parametro correcto.
@@ -247,7 +265,7 @@ controller.getdatusuario = (req,res) =>{
   if(datoscliente.length != 0){
     //Hacemos query
     req.getConnection((err,connection) =>{
-      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ?',[idrec],(err,rows) =>{
+      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC;',[idrec],(err,rows) =>{
         if(err){
             console.log(err);
         }else{
@@ -277,11 +295,33 @@ const busc = req.body.buscar;
         res.redirect('/medico2')
       }else{
         res.render('buscar');
+        pacientee = rows;
+        Hpacientee = rows[0].codigo_caso;
       }
       }
       
     })
   })
+};
+
+controller.Histmed = (req,res) =>{
+  // Realizamos el en caso de que se haya digitado algun parametro correcto.
+  console.log(pacientee);
+  console.log(Hpacientee);
+  if(datoscliente.length != 0){
+    //Hacemos query
+    req.getConnection((err,connection) =>{
+      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC;',[Hpacientee],(err,rows) =>{
+        if(err){
+            console.log(err);
+        }else{
+          res.json({rows});
+        }
+      });
+    });
+  }else{
+    res.json({mensaje:"no hay datos"});
+  }
 };
 
 
