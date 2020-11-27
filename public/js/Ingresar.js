@@ -38,6 +38,9 @@ function enviar(opciones){
     .then((json) => {
     console.log(json);
     let direccion = json.roles;
+    if(direccion == 'MEDICO'){
+    direccion = direccion+2;
+    }
     window.location.replace(direccion);
     });
 }

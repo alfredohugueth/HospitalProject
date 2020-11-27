@@ -1,6 +1,8 @@
 const controller = {};
 let datoscliente = {};
 let idrec = 0;
+let pacientee = {};
+let Hpacientee = 0;
 controller.login = (req,res) =>{
   res.render('login');
 }
@@ -211,6 +213,9 @@ controller.prueba = (req,res) =>{
 controller.pacient = (req,res) =>{
     res.json({datoscliente});
 }
+controller.pacientee = (req,res) =>{
+  res.json({pacientee});
+}
 
 controller.actualiz = (req,res) =>{
   console.log(req.body);
@@ -313,6 +318,59 @@ controller.mgbusqueda = (req,res) =>{
   res.render('mgbusqueda');
 
 };
+
+controller.buscar = (req, res) => {
+console.log(req.body.buscar);
+const busc = req.body.buscar;
+  req.getConnection((err, connection) => {
+    
+    connection.query("SELECT * from registro_casos where codigo_caso = ? or cedula = ? ", [busc,busc], (err, rows) => {
+      if (err){
+        res.json(err)
+      }
+      else{
+      console.log(rows.length);
+      const tamanorow = rows.length;
+      if(tamanorow == 0){
+        res.redirect('/medico2')
+      }else{
+        res.render('buscar');
+        pacientee = rows;
+        Hpacientee = rows[0].codigo_caso;
+      }
+      }
+      
+    })
+  })
+};
+
+controller.Histmed = (req,res) =>{
+  // Realizamos el en caso de que se haya digitado algun parametro correcto.
+  console.log(pacientee);
+  console.log(Hpacientee);
+  if(datoscliente.length != 0){
+    //Hacemos query
+    req.getConnection((err,connection) =>{
+      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC;',[Hpacientee],(err,rows) =>{
+        if(err){
+            console.log(err);
+        }else{
+          res.json({rows});
+        }
+      });
+    });
+  }else{
+    res.json({mensaje:"no hay datos"});
+  }
+};
+
+
+
+
+
+
+
+
 
 module.exports = controller;
 
