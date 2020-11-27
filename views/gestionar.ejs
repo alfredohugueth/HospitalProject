@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang = "es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -8,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Registrar Caso | </title>
+    <title>Gestionar Caso | </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,15 +18,15 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/boton.css">
 </head>
-
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                        <a href="index.html" class="site_title"><img class = 'logo'></img><span>CLINICA HMMS</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -53,7 +52,7 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="index.html">Mapa</a></li>
+                                        <li><a href="/AYUDANTE">Registrar Caso</a></li>
                                     </ul>
                                 </li>
 
@@ -68,7 +67,6 @@
                     <!-- /menu footer buttons -->
                 </div>
             </div>
-
             <!-- top navigation  barra superior  -->
             <div class="top_nav">
                 <div class="nav_menu">
@@ -82,12 +80,13 @@
                                     <img src="images/img.jpg" alt="">John Doe
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <!----
                                     <a class="dropdown-item" href="javascript:;"> Profile</a>
                                     <a class="dropdown-item" href="javascript:;">
                                         <span class="badge bg-red pull-right">50%</span>
                                         <span>Settings</span>
                                     </a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
+                                    <a class="dropdown-item" href="javascript:;">Help</a>  --->
                                     <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                 </div>
                             </li>
@@ -104,7 +103,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>CONSULTA PACIENTES</h3>
+                            <h3>Formulario de gestion de casos</h3>
                         </div>
 
                      
@@ -115,7 +114,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Ingrese el código del caso o cédula del paciente de interes</h2>
+                                    <h2>Gestion de casos</h2>
                                     <ul class="nav navbar-right panel_toolbox">
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
@@ -126,98 +125,56 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <form action="/buscar" method="post" novalidate>
-
-                                        <input type="text" name="buscar" placeholder="Consulta por ID,  o cedula de paciente">
-
-                                        <input type="submit" value="Buscar">
-
+                                    <form class="" action="/busqueda" method="post" novalidate>
+                                        <input type="text" class="busqueda" name="busqueda" placeholder="Realizar consulta por ID, nombre o cedula de paciente">
+                                        <input type="submit"  class="botonBusq" value="Buscar">
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /page content -->
-
-            <!-- footer content -->
-            <footer>
-                <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-                </div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
-    </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="../vendors/validator/multifield.js"></script>
-    <script src="../vendors/validator/validator.js"></script>
-    
-    <!-- Javascript functions	-->
-	<script>
-		function hideshow(){
-			var password = document.getElementById("password1");
-			var slash = document.getElementById("slash");
-			var eye = document.getElementById("eye");
-			
-			if(password.type === 'password'){
-				password.type = "text";
-				slash.style.display = "block";
-				eye.style.display = "none";
-			}
-			else{
-				password.type = "password";
-				slash.style.display = "none";
-				eye.style.display = "block";
-			}
 
-		}
-	</script>
+<!-- Seccion de js-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--
+<script>
+    // initialize a validator instance from the "FormValidator" constructor.
+    // A "<form>" element is optionally passed as an argument, but is not a must
+    var validator = new FormValidator({
+        "events": ['blur', 'input', 'change']
+    }, document.forms[0]);
+    // on form "submit" event
+    document.forms[0].onsubmit = function(e) {
+        var submit = true,
+            validatorResult = validator.checkAll(this);
+        console.log(validatorResult);
+        return !!validatorResult.valid;
+    };
+    // on form "reset" event
+    document.forms[0].onreset = function(e) {
+        validator.reset();
+    };
+    // stuff related ONLY for this demo page:
+    $('.toggleValidationTooltips').change(function() {
+        validator.settings.alerts = !this.checked;
+        if (this.checked)
+            $('form .alert').remove();
+    }).prop('checked', false);
 
-    <script>
-        // initialize a validator instance from the "FormValidator" constructor.
-        // A "<form>" element is optionally passed as an argument, but is not a must
-        var validator = new FormValidator({
-            "events": ['blur', 'input', 'change']
-        }, document.forms[0]);
-        // on form "submit" event
-        document.forms[0].onsubmit = function(e) {
-            var submit = true,
-                validatorResult = validator.checkAll(this);
-            console.log(validatorResult);
-            return !!validatorResult.valid;
-        };
-        // on form "reset" event
-        document.forms[0].onreset = function(e) {
-            validator.reset();
-        };
-        // stuff related ONLY for this demo page:
-        $('.toggleValidationTooltips').change(function() {
-            validator.settings.alerts = !this.checked;
-            if (this.checked)
-                $('form .alert').remove();
-        }).prop('checked', false);
+</script>
+-->
+<!-- jQuery -->
+<script src="../vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FastClick -->
+<script src="../vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="../vendors/nprogress/nprogress.js"></script>
+<!-- validator -->
+<!-- <script src="../vendors/validator/validator.js"></script> -->
 
-    </script>
-
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
-    <!-- <script src="../vendors/validator/validator.js"></script> -->
-
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-
+<!-- Custom Theme Scripts -->
+<script src="../build/js/custom.min.js"></script>
 </body>
-
+    
 </html>

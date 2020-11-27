@@ -1,0 +1,55 @@
+.busqueda{
+    width: 90%;
+    padding: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    border: 1px solid #0076a3;
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+    font-style: italic;
+
+}
+.botonBusq{
+    position: absolute;
+    padding: 12px;
+    width: 8%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    text-shadow: 0 0 1px #000;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    border-right: 0;
+    background: linear-gradient(#00ADEE,#0078a5);
+    border: 1px solid #0076a3;
+}
+.logo{
+    background:url('../images/logohospitalv2_icon.ico');
+    height: 30px;  /*height of icon */
+    width: 30px;  /*width of icon */
+      /*where to replace the icon */
+      /*background */
+    
+}
+.tabla{
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+
+}
+.tabla thead tr{
+  background-color: #0078a5;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+
+}
+.tabla th,
+.tabla td{
+  padding: 12px 15px;
+}
+
+.tabla tbody tr{
+  border-bottom: 1px solid #dddddd;
+}
