@@ -1,5 +1,6 @@
 let infoCliente;
 let idPasiente;
+let estado;
 let opciones ={
     method: 'POST'
 };
@@ -9,7 +10,7 @@ fetch('/infocliente').then((response) => response.json())
                     nombre = json.datoscliente[0].nombre;
                     cedula = json.datoscliente[0].cedula;
                     estado = json.datoscliente[0].estado;
-                    fecha1 = json.datoscliente[0].fecha
+                    fecha1 = json.datoscliente[0].fecha;
                     idPasiente = json.datoscliente[0].codigo_caso;
                     document.getElementById("Nomb").innerHTML = nombre;
                     document.getElementById("ced").innerHTML = cedula;

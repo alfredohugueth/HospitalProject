@@ -222,11 +222,11 @@ controller.actualiz = (req,res) =>{
       if(err){
         console.log(err);
       }else{
-      res.json({mensaje:"Todo bien por ahora"});
+      //res.json({mensaje:"Todo bien por ahora"});
       }
     });
     // Ahora enfoquemonos a acumular los datos de actualizacion de cada usuario.
-
+   
   })
   req.getConnection((err2,connection2)=>{
     connection2.query('insert into estados_UsuariosAlfre (codigo_consulta, fecha_Actual, Estado_Actual) values (?,?,?)',[idrec,fechrec,estrec],(err2,row2) =>{
@@ -237,8 +237,20 @@ controller.actualiz = (req,res) =>{
       }
     })
     //Ahora realizemos query de los datos que son recibidos del usuario para ubicarlos en la pagina en forma de tabla.
-
+    
   })
+  console.log(idrec);
+  req.getConnection((err3,connection3)=>{
+    connection3.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC',[idrec],(err4,rows3) =>{
+      if(err4){
+        console.log(err);
+      }else{
+        res.json({rows3});
+        console.log("Datos de tabla actualizados.");
+      }
+    });
+  });
+
 }
 controller.getdatusuario = (req,res) =>{
   // Realizamos el en caso de que se haya digitado algun parametro correcto.
@@ -247,7 +259,7 @@ controller.getdatusuario = (req,res) =>{
   if(datoscliente.length != 0){
     //Hacemos query
     req.getConnection((err,connection) =>{
-      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ?',[idrec],(err,rows) =>{
+      connection.query('select fecha_Actual, Estado_Actual from estados_UsuariosAlfre where codigo_consulta = ? ORDER BY fecha_Actual ASC;',[idrec],(err,rows) =>{
         if(err){
             console.log(err);
         }else{
@@ -259,6 +271,7 @@ controller.getdatusuario = (req,res) =>{
     res.json({mensaje:"no hay datos"});
   }
 };
+
 
 module.exports = controller;
 
