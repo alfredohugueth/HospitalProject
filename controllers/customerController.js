@@ -5,6 +5,8 @@ controller.login = (req,res) =>{
   res.render('login');
 }
 
+
+
 controller.list = (req, res) => {
   req.getConnection((err, conn) => {
     conn.query('SELECT * FROM administracion', (err, customers) => {
