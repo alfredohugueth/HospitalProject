@@ -34,8 +34,8 @@ formuActualiza.addEventListener('submit',event =>{
     fetch('/actualizarEstado',opcionEnvio).then((response) => response.json())
 				.then((json) => {
                     console.log(json);
-                    document.getElementById("est").innerHTML = estadActu;
-                    document.getElementById("fech").innerHTML = fechActu;
+                    //document.getElementById("est").innerHTML = estadActu;
+                    //document.getElementById("fech").innerHTML = fechActu;
                     //Recibo los datos historicos del usuario.
                     console.log(json.rows3);
                     //Estos datos debo mostrarlos en una tabla.

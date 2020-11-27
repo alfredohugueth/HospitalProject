@@ -171,6 +171,7 @@ controller.savecaso = (req, res) => {
       console.log(customer)
       res.redirect('/AYUDANTE');
     })
+    console.log(data);
   })
 };
 controller.gestionarcas = (req,res) =>{
@@ -181,7 +182,7 @@ controller.busqueda = (req,res) =>{
   console.log(req.body.busqueda);
   const busq = req.body.busqueda;
   req.getConnection((err, connection) =>{
-    connection.query("SELECT * from actualiza_estado where codigo_caso = ? or cedula = ? or nombre = ?",[busq,busq,busq],(err,rows) =>{
+    connection.query("SELECT * from registro_casos where codigo_caso = ? or cedula = ? or nombre = ?",[busq,busq,busq],(err,rows) =>{
       if(err){
         res.json(err);
       }
