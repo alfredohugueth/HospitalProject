@@ -20,6 +20,8 @@ router.get('/infocliente',customerController.pacient);
 router.post('/actualizarEstado',customerController.actualiz);
 router.get('/HistorialUsua',customerController.getdatusuario);
 
+router.get('/MAPGEO',customerController.mapgeo);
+router.post('/mgbusqueda',customerController.mgbusqueda);
 
 /*router.post('/ayudante',customerController.ayudante);
 router.post('/medico',customerController.medico);

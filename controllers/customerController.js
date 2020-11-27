@@ -275,6 +275,44 @@ controller.getdatusuario = (req,res) =>{
   }
 };
 
+controller.mapgeo = (req,res) =>{
+
+    req.getConnection((err, conn) => {
+
+      let sql='SELECT rc.nombre,rc.direccion_residencia,ec.idEstado_caso FROM registro_casos rc,Estado_caso ec,actualiza_estado ae WHERE ae.estado=ec.nmEstado_caso AND rc.cedula=ae.cedula'
+      conn.query(sql, (err, rows) => {
+     data0= rows
+     var nom=[];
+     var dir=[];
+     var data=[];
+    console.log(rows.length);
+    //Crear vectores que contendrán los resultados de cada columna
+    for (let i = 0; i < rows.length; i++) {
+        var x = rows[i]; 
+        //Asignarle valores a los vectores por cada respuesta arrojada por el query.
+        nom.push(x.nombre);
+        dir.push(x.direccion_residencia);
+        data.push(x.idEstado_caso);
+    }
+    console.log(nom);
+    console.log(dir);
+    console.log(data);
+    //Llevar vectores al front a través de mapgeo2.
+    res.render('mapgeo2', {
+      nom,   
+      dir, 
+      data,
+      });
+    
+    })
+});
+
+};
+
+controller.mgbusqueda = (req,res) =>{
+  res.render('mgbusqueda');
+
+};
 
 module.exports = controller;
 
