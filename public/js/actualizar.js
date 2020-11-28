@@ -28,6 +28,7 @@ formuActualiza.addEventListener('submit',event =>{
 			}
     }
     //console.log(estado);
+    // Esto es para pushear el merge.
     if(estado == "P/Muerto"){
         alert("Usuario Muerto, no es posible realizar actualización");
     }else{
