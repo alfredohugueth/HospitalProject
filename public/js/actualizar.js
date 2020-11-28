@@ -7,6 +7,7 @@ let opcionEnvio;
 const formuActualiza = document.querySelector('#actuForm');
 formuActualiza.addEventListener('submit',event =>{
     event.preventDefault();
+    //Verificamos primero si el ultimo estado del usuario es P/Muerto.
     estadActu = document.getElementById("estActu1").value;
     console.log(estadActu);
     fechActu = document.getElementById("FechActu1").value;
@@ -26,7 +27,7 @@ formuActualiza.addEventListener('submit',event =>{
       			// 'Content-Type': 'application/x-www-form-urlencoded',
 			}
     }
-    console.log(estado);
+    //console.log(estado);
     if(estado == "P/Muerto"){
         alert("Usuario Muerto, no es posible realizar actualización");
     }else{
