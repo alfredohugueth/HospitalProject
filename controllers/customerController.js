@@ -115,7 +115,8 @@ controller.medico = (req, res) => {
 };
 controller.save = (req, res) => {
   const data = req.body;
-  console.log(req.body)
+  console.log(req.body);
+  
   req.getConnection((err, connection) => {
     
     connection.query("INSERT INTO administracion set ?", [data], (err, customer) => {
@@ -175,8 +176,25 @@ controller.savecaso = (req, res) => {
       console.log(customer)
       res.redirect('/AYUDANTE');
     })
+    
+  });
+  req.getConnection((err2,connection2) =>{
     console.log(data);
-  })
+    resulEx = data.resultado_examen;
+    console.log(resulEx);
+    cedu = data.cedula;
+    console.log(cedu);
+    fecExm = data.fecha_examen;
+    nomCon = data.nombre;
+    if(resulEx == "Positivo"){
+    connection2.query("insert into actualiza_estado values((select codigo_caso from registro_casos where cedula = ?),?,'P/En UCI',?,?)",[cedu,cedu,fecExm,nomCon],(err,custom2)=>{
+      if(err){
+        console.log(err);
+      }
+    });
+  }
+  });
+
 };
 controller.gestionarcas = (req,res) =>{
   res.render('gestionar');

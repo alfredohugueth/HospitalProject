@@ -44,7 +44,10 @@ fetch('/HistorialUsua').then((response) => response.json())
                       });
                       // Terminamos el loop
                       document.getElementById("HistorialUsua").innerHTML = temp;
-
+                      // Definimos estado como el ultimo reportado por el usuario.
+                      tam = ((json.rows).length);
+                      estado = (json.rows[tam-1].Estado_Actual);
+                      console.log(estado);
                     }
                 });
                
