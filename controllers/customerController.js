@@ -353,6 +353,7 @@ const busc = req.body.buscar;
         res.redirect('/medico2')
       }else{
         dirR = rows[0].direccion_residencia;
+        dirT = rows[0].direccion_trabajo;
         res.render('buscar',{
           dirR,
         });
