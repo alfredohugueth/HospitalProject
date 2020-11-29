@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9t2ZsrarU4KQl7fZl6Yr2vkS3dckb_KY&callback=initMap&libraries=&v=weekly">
+    </script>
     <title>Registrar Caso | </title>
 
     <!-- Bootstrap -->
@@ -28,7 +29,7 @@
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><img class = 'logo'></img><span>CLINICA HMMS</span></a>
+                        <a href="\medico2" class="site_title"><img class = 'logo'></img><span>CLINICA HMMS</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -54,7 +55,7 @@
                             <ul class="nav side-menu">
                                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/GESTIONAR">Gestionar Caso</a></li>
+                                        <li><a href="/mapgeo">Mapa</a></li>
                                     </ul>
                                 </li>
 
@@ -196,6 +197,59 @@
                                         </tbody> 
                                       </table>  
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="container">
+                                <div class="row data">
+                                  <style type="text/css">
+                                    /* Always set the map height explicitly to define the size of the div
+                                    * element that contains the map. */
+                                    #map {
+                                      height: 560px;
+                                    }
+                                  </style>
+                                  <script>
+                                    function initMap() {
+                                        const map = new google.maps.Map(document.getElementById("map"), {
+                                        zoom: 8,
+                                        center: { lat: 10.9932, lng: -74.8049 },
+                                        });
+                                        const geocoder = new google.maps.Geocoder();
+                                        
+                                         geocodeAddress(geocoder, map);
+                                    }
+
+                                    function updateMap() {   
+                                        document.getElementById("submit").addEventListener("click", () => {
+                                        geocodeAddress(geocoder, map);
+                                        });
+                                    }
+
+                                     function geocodeAddress(geocoder, resultsMap) {
+                                         var dirRR = "<%=dirR%>";
+                                         var address = dirRR;
+                                        geocoder.geocode({ address: address }, (results, status) => {
+                                        if (status === "OK") {
+                                            resultsMap.setCenter(results[0].geometry.location);
+                                            new google.maps.Marker({
+                                                map: resultsMap,
+                                                position: results[0].geometry.location,
+                                            });
+                                        } else {
+                                                alert("Geocode was not successful for the following reason: " + status);
+                                        }
+                                            });
+                                    }
+                                  </script>
+                                    <div class="col-md-12 col-sm-12 ">
+                                    <div id="map"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              
 
                             
 

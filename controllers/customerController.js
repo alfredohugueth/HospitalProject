@@ -352,9 +352,13 @@ const busc = req.body.buscar;
       if(tamanorow == 0){
         res.redirect('/medico2')
       }else{
-        res.render('buscar');
+        dirR = rows[0].direccion_residencia;
+        res.render('buscar',{
+          dirR,
+        });
         pacientee = rows;
         Hpacientee = rows[0].codigo_caso;
+        
       }
       }
       
@@ -381,6 +385,10 @@ controller.Histmed = (req,res) =>{
     res.json({mensaje:"no hay datos"});
   }
 };
+
+controller.medico2 = (req,res) => {
+res.render('medico2');
+}
 
 
 

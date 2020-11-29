@@ -22,7 +22,7 @@ router.post('/actualizarEstado',customerController.actualiz);
 router.get('/HistorialUsua',customerController.getdatusuario);
 router.get('/pacientee',customerController.pacientee);
 router.get('/Hpacientee',customerController.Histmed);
-
+router.get('/medico2',customerController.medico2);
 router.get('/MAPGEO',customerController.mapgeo);
 router.post('/mgbusqueda',customerController.mgbusqueda);
 
