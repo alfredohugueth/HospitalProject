@@ -352,6 +352,7 @@ const busc = req.body.buscar;
       if(tamanorow == 0){
         res.redirect('/medico2')
       }else{
+        
         dirR = rows[0].direccion_residencia;
         res.render('buscar',{
           dirR,
