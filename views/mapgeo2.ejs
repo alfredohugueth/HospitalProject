@@ -198,56 +198,81 @@
                           var dirs=dirg.split(",");
                           var datag=[<%= data %>];
                           console.log(datag);
+                          console.log(noms);
+                          markers = [];
                           for (let i = 0; i < datag.length; i++) {
-                            const address = dirs[i];
+                            markers[i]=0
+                          }
+                          infoWindow = new google.maps.InfoWindow();
+                          for (let i = 0; i < datag.length; i++) {
+                            var address = dirs[i];
                             console.log(address);
+                            console.log("i: "+i);
                             geocoder.geocode({ address: address }, (results, status) => {
+                              console.log("i: "+i);
+                              console.log("results: "+Object.values(results[0]));
                               if (status === "OK") {
                                 resultsMap.setCenter(results[0].geometry.location);
-                                colormarker(datag[i],results,resultsMap);
+                                
+                                console.log("Data entrante: "+i+" "+datag[i]+noms[i]);
+                                cb = colormarker(datag[i],results,resultsMap,noms[i]);
+                                var marker=cb[0];
+                                var nombre=cb[1];
+                                console.log("Data a empujar: "+results+nombre);
+                                markers[i]=marker;
+                                
+                                console.log(markers);
+                                
+                                marker.addListener("mouseover", () => {
+                                  infoWindow.setContent(noms[i]);
+                                  infoWindow.open(resultsMap,markers[i]);
+                                });
                               } else {
                                 alert("Geocode was not successful for the following reason: " + status);
                               }
                             });
                           }
                         }
-                        function colormarker(estado,results,resultsMap) {
+                        function colormarker(estado,results,resultsMap,nombre) {
                           if (estado==0){
-                           new google.maps.Marker({
+                           var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                             }); 
-                          }
+                          } else
                           if (estado==2 || estado==3){
-                           new google.maps.Marker({
+                           var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
                             }); 
-                          }
+                          } else
                           if (estado==4){
-                           new google.maps.Marker({
+                           var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'
                             }); 
-                          }
+                          } else
                           if (estado==5){
-                           new google.maps.Marker({
+                           var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
                             }); 
-                          }
+                          } else
                           if (estado==6){
-                           new google.maps.Marker({
+                           var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
                             }); 
                           }
+                          return [marker,nombre];
                         }
+                        
+
                       </script>
                   <div class="col-md-12 col-sm-12 ">
                     <div id="floating-panel">
