@@ -97,7 +97,7 @@ controller.ayudante = (req,res) =>{
           console.log(rows);
     
       });
-      conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual = ?", ["P/Muerto"], (err, rows) => {
+      conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ?", ["P/Muerto"], (err, rows) => {
            
            
         data5= rows
@@ -105,7 +105,7 @@ controller.ayudante = (req,res) =>{
       console.log(rows);
     
     });
-    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual = ?", ["P/Curado"], (err, rows) => {
+    conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ?", ["P/Curado"], (err, rows) => {
            
            
       data6= rows
@@ -113,7 +113,7 @@ controller.ayudante = (req,res) =>{
     console.log(rows);
     
     });
-    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? or Estado_Actual = ? or Estado_Actual = ?", ["P/Tratamiento en hospital","P/Tratamiento en casa","P/En UCI"], (err, rows) => {
+    conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ? or estado = ? or estado = ?", ["P/Tratamiento en hospital","P/Tratamiento en casa","P/En UCI"], (err, rows) => {
            
            
       data7= rows
@@ -122,15 +122,16 @@ controller.ayudante = (req,res) =>{
     
     });
     
-    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/Tratamiento en hospital"], (err, rows) => {
+    conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ? ", ["P/Tratamiento en hospital"], (err, rows) => {
            
            
       data8= rows
+    console.log("hospital")
     
     console.log(rows);
     
     });
-    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/Tratamiento en casa"], (err, rows) => {
+    conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ?", ["P/Tratamiento en casa"], (err, rows) => {
            
            
       data9= rows
@@ -139,7 +140,7 @@ controller.ayudante = (req,res) =>{
     
     });
     
-    conn.query("SELECT COUNT(*)    FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/En UCI"], (err, rows) => {
+    conn.query("SELECT count(distinct codigo_caso) FROM actualiza_estado WHERE estado = ? ", ["P/En UCI"], (err, rows) => {
            
            
       data10= rows
@@ -148,16 +149,16 @@ controller.ayudante = (req,res) =>{
     
     });
     
-    conn.query("SELECT  COUNT(*) FROM estados_UsuariosAlfre ",  (err, rows) => {
+    conn.query("SELECT  count(distinct codigo_caso)  FROM actualiza_estado WHERE estado =? or estado=? or estado=? or estado=?",["P/En UCI",'P/Tratamiento en casa','P/Tratamiento en hospital','P/Muerto'],  (err, rows) => {
            
-           
+        console.log("infectados")   
       data11= rows
     
     console.log(rows);
     
     });
     
-    conn.query("select fecha_examen, count(*) as resultado_examen from registro_casos where resultado_examen=? group by fecha_examen order by fecha_examen limit 7", ["POSITIVO"],  (err, rows) => {
+    conn.query("select fecha_examen, count(*) as resultado_examen from registro_casos where resultado_examen=? group by fecha_examen order by fecha_examen", ["POSITIVO"],  (err, rows) => {
            
            
       data12= JSON.parse(JSON.stringify(rows))
@@ -166,7 +167,7 @@ controller.ayudante = (req,res) =>{
     
     });
     
-    conn.query("select fecha_Actual, count(*) as Estado_Actual from estados_UsuariosAlfre where Estado_actual=? group by fecha_Actual", ["P/Muerto"],  (err, rows) => {
+    conn.query("select fecha, count(*) as estado from actualiza_estado where estado=? group by fecha", ["P/Muerto"],  (err, rows) => {
            
            
       data13= rows
@@ -174,6 +175,16 @@ controller.ayudante = (req,res) =>{
     console.log(rows);
     
     });
+
+    conn.query("SELECT  count(distinct codigo_caso)  FROM actualiza_estado WHERE estado =? or estado=? or estado=? or estado=? or estado=?",["P/En UCI",'P/Tratamiento en casa','P/Tratamiento en hospital','P/Muerto','P/Curado'],  (err, rows) => {
+           
+      console.log("infectados")   
+    data14= rows
+  
+  console.log(rows);
+  
+  });
+
       conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["NEGATIVO"], (err, rows) => {
         
         res.render('index', {
@@ -190,6 +201,7 @@ controller.ayudante = (req,res) =>{
           data11,
           data12,
           data13,
+          data14,
     
         }) 
         
@@ -279,6 +291,16 @@ controller.savecaso = (req, res) => {
         console.log(err);
       }
     });
+
+  }
+
+  if(resulEx == "Negativo"){
+    connection2.query("insert into actualiza_estado values((select codigo_caso from registro_casos where cedula = ?),?,'NEGATIVO',?,?)",[cedu,cedu,fecExm,nomCon],(err,custom2)=>{
+      if(err){
+        console.log(err);
+      }
+    });
+
   }
   });
 
