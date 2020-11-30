@@ -2,12 +2,19 @@
 <html lang="en">
   <head>
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
+
+    <script src="https://fonts.googleapis.com/css?family=Lato"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <script>
       window.onload = function () {
-      
-      var chart = new CanvasJS.Chart("chartContainer", {
+
+      var chart2 = new CanvasJS.Chart("chartContainer2", {
         animationEnabled: true,
         
         data: [{
@@ -16,17 +23,62 @@
           //innerRadius: 60,
           indexLabelFontSize: 17,
           dataPoints: [
-            { y: 10 },
-            { y: 30 },
-            { y: 50 },
-            { y: 10},
+            { y: <%= Object.values(JSON.parse(JSON.stringify(data9[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100},
+            { y: <%= Object.values(JSON.parse(JSON.stringify(data8[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100},
+            { y: <%= Object.values(JSON.parse(JSON.stringify(data10[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100},
+            { y: <%= Object.values(JSON.parse(JSON.stringify(data5[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100},
           ]
         }]
       });
-      chart.render();
+      chart2.render();
       
-      }
-      </script>
+      
+
+
+
+  var pie = new CanvasJS.Chart("chartContainer1", {
+    animationEnabled: true,
+    
+    data: [{
+      type: "doughnut",
+      startAngle: 60,
+      //innerRadius: 60,
+      indexLabelFontSize: 17,
+      dataPoints: [
+        { y: <%= Object.values(JSON.parse(JSON.stringify(data7[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100 },
+        { y: <%= Object.values(JSON.parse(JSON.stringify(data5[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100 },
+        { y: <%= Object.values(JSON.parse(JSON.stringify(data6[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data11[0])))  %>*100 },
+   
+      ]
+    }]
+  });
+  pie.render();
+
+
+
+
+  var pie3 = new CanvasJS.Chart("chartContainer3", {
+    animationEnabled: true,
+    
+    data: [{
+      type: "doughnut",
+      startAngle: 60,
+      //innerRadius: 60,
+      indexLabelFontSize: 17,
+      dataPoints: [
+        { y: <%= Object.values(JSON.parse(JSON.stringify(data3[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data1[0])))  %>*100 },
+        { y: <%= Object.values(JSON.parse(JSON.stringify(data4[0])))  %> / <%= Object.values(JSON.parse(JSON.stringify(data1[0])))  %>*100 },
+      ]
+    }]
+  });
+  pie3.render();
+  }
+
+</script>
+
+
+
+
 
       <!-- camvas dona-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,7 +88,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>Gentelella Alela! | </title>
+    <title>Hospital Hsh | </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -61,6 +113,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/boton.css">
   </head>
 
   <body>
@@ -70,16 +123,25 @@
       <div class="main_container">
 
 
-        <!-- boton iniciar seccion -->
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/login"><span class="glyphicon glyphicon-user"></span> LOG IN </a></li>
-              
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+          <!-- Brand -->
+          <img class = 'logo'><a class="navbar-brand" href="/">Clínica HMMS</a>
+        
+          <!-- Toggler/collapsibe Button -->
+        
+          <!-- Navbar links -->
+          <div class="collapse navbar-collapse  ">
+            <ul class="navbar-nav navbar-right ">
+              <li class="nav-item">
+                <a href="/login"><span class="glyphicon glyphicon-user"></span>LogIn</a>
+              </li>
+            
             </ul>
           </div>
         </nav>
+ 
+        <!-- boton iniciar seccion -->
+      
         
         <!-- page content -->
         <div class="right_col" role="main">
@@ -89,32 +151,32 @@
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Pruebas Realizadas</span>
               <div class="count"><%= Object.values(JSON.parse(JSON.stringify(data1[0])))  %></div>
-              <span class="count_bottom"><i class="green">4% </i> Casos </span>
+              <span class="count_bottom"><i class="green"></i>  </span>
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Casos Negativos</span>
               <div class="count green"><%= Object.values(JSON.parse(JSON.stringify(data4[0])))  %></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>   </i> casos</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>   </i> </span>
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Casos Positivos</span>
               <div class="count green"><%= Object.values(JSON.parse(JSON.stringify(data3[0])))  %></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i> </i> </span>
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Mujeres</span>
               <div class="count"><%= Object.values(JSON.parse(JSON.stringify(data2[0])))  %></div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i></i> </span>
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Hombres</span>
               <div class="count"><%= Object.values(JSON.parse(JSON.stringify(data0[0])))  %></div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> </span>
             </div>
             <div class="col-md-2 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Muertos</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+              <div class="count"><%= Object.values(JSON.parse(JSON.stringify(data5[0])))  %></div>
+              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i></span>
             </div>
           </div>
         </div>
@@ -126,63 +188,24 @@
 
                 <div class="row x_title">
                   <div class="col-md-6">
-                    <h3>Casos Registrados <small>Graph title sub-title</small></h3>
+                    <h3>Casos Registrados y número de muertes <small>vs</small> Días</h3>
                   </div>
                   <div class="col-md-6">
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div>
+                 
                   </div>
                 </div>
 
-                <div class="col-md-9 col-sm-9 ">
-                  <div id="chart_plot_01" class="demo-placeholder"></div>
-                </div>
-                <div class="col-md-3 col-sm-3  bg-white">
-                  <div class="x_title">
-                    <h2>Top Campaign Performance</h2>
-                    <div class="clearfix"></div>
+                <div class="modal-body row">
+                  <div class="col-md-6">
+                    <div id="myfirstchart" style="height: 250px;"></div>
                   </div>
+                  <div class="col-md-6">
+                    <div id="mysegundo" style="height: 250px;"></div>
+                  </div>
+             </div>
 
-                  <div class="col-md-12 col-sm-12 ">
-                    <div>
-                      <p>Facebook Campaign</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <p>Twitter Campaign</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12 col-sm-12 ">
-                    <div>
-                      <p>Conventional Media</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <p>Bill boards</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
+               
+                
 
                 <div class="clearfix"></div>
               </div>
@@ -194,7 +217,7 @@
           <div class="row">
 
 
-                  <!-- /Graficas Pie  -->
+          <!-- /Graficas Pie  -->
 
             <div class="col-md-4 col-sm-4 ">
               <div class="x_panel tile fixed_height_320 overflow_hidden">
@@ -226,8 +249,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
-                        
+                          <div id="chartContainer1"  style="height: 130px; width: 110%;" height="50" width="50" ></div>
                       </td>
                       <td>
                         <table class="tile_info">
@@ -235,19 +257,19 @@
                             <td>
                               <p><i class="fa fa-square blue"></i>Infectados </p>
                             </td>
-                            <td>30%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data7[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
                             <td>
-                              <p><i class="fa fa-square green"></i>Muertos </p>
+                              <p><i class="fa fa-square red"></i>Muertos </p>
                             </td>
-                            <td>10%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data5[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
                             <td>
-                              <p><i class="fa fa-square purple"></i>Curados </p>
+                              <p><i class="fa fa-square " style='color:#9dcb07'></i>Curados </p>
                             </td>
-                            <td>20%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data6[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
 
@@ -259,7 +281,7 @@
                 </div>
               </div>
             </div>
-
+          <!-- /Graficas Pie 2  -->
             <div class="col-md-4 col-sm-4 ">
               <div class="x_panel tile fixed_height_320 overflow_hidden">
                 <div class="x_title">
@@ -296,7 +318,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <div id="chartContainer"  style="height: 130px; width: 110%;" height="50" width="50" ></div>
+                        <div id="chartContainer2"  style="height: 130px; width: 110%;" height="50" width="50" ></div>
 
                       </td>
                         
@@ -305,27 +327,27 @@
                         <table class="tile_info">
                           <tr>
                             <td>
-                              <p><i class="fa fa-square blue"></i>En Casa </p>
+                              <p><i class="fa fa-square  " style='color:#9dcb07'></i>En Casa </p>
                             </td>
-                            <td>30%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data9[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
                             <td>
-                              <p><i class="fa fa-square green"></i>En Hospital </p>
+                              <p><i class="fa fa-square" style='color:#dd5800' ></i>En Hospital </p>
                             </td>
-                            <td>10%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data8[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
                             <td>
-                              <p><i class="fa fa-square purple"></i>En UCI </p>
+                              <p><i class="fa fa-square " style='color:#3478f5' ></i>En UCI </p>
                             </td>
-                            <td>20%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data10[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                           <tr>
                             <td>
-                              <p><i class="fa fa-square aero"></i>Muertos </p>
+                              <p><i class="fa fa-square " style='color:#08bbac' ></i>Muertos </p>
                             </td>
-                            <td>15%</td>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data5[0])))/Object.values(JSON.parse(JSON.stringify(data11[0])))))%>%</td>
                           </tr>
                         </table>
                       </td>
@@ -334,11 +356,11 @@
                 </div>
               </div>
             </div>
-
+          <!-- /Graficas Pie 3 -->
             <div class="col-md-4 col-sm-4 ">
               <div class="x_panel tile fixed_height_320 overflow_hidden">
                 <div class="x_title">
-                  <h2>Resultados Examen </h2>
+                  <h2>Resultados  </h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -364,7 +386,10 @@
                     </tr>
                     <tr>
                       <td>
-                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                       
+                          <div id="chartContainer3"  style="height: 130px; width: 110%;" height="50" width="50" ></div>
+  
+                       
                       </td>
                       <td>
                         <table class="tile_info">
@@ -372,13 +397,13 @@
                             <td>
                               <p><i class="fa fa-square blue"></i>Positivos </p>
                             </td>
-                            <td>60%</td>
-                          </tr>
+                            <td><%= Math.round(100*(Object.values(JSON.parse(JSON.stringify(data3[0])))   /  Object.values(JSON.parse(JSON.stringify(data1[0])))))  %>%</td>
+                          </tr>s
                           <tr>
                             <td>
-                              <p><i class="fa fa-square green"></i>Negativos </p>
+                              <p><i class="fa fa-square red clay"></i>Negativos </p>
                             </td>
-                            <td>40%</td>
+                            <td><%= Math.round((Object.values(JSON.parse(JSON.stringify(data4[0])))   /  Object.values(JSON.parse(JSON.stringify(data1[0]))))*100)  %>% </td>
                           </tr>
                           
                           
@@ -451,6 +476,77 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+  
+ <script>
+   new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  
+
+  data: [
+
+  <% if (data12) { %>
+   <% for(var i = 0; i < data12.length; i++) { %>
+                                                    
+    {mes:<%= data12[i].fecha_examen%>,Positivos:<%= data12[i].resultado_examen%>},
+
+ <% } %>
+<% } %>
+
+
+  
+  ],
+
+  // The name of the data record attribute that contains x-values.
+  xkey: 'mes',
+  xlabels:"month",
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['Positivos'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Positivos'],
+  resize:true,
+  lineColors:['#C14D9F']
+});
+
+
+
+
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'mysegundo',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  
+
+
+  data: [
+
+<% if (data13) { %>
+ <% for(var i = 0; i < data13.length; i++) { %>
+                                                  
+  {dia:<%= data13[i].fecha_Actual%>,Muertos:<%= data13[i].Estado_Actual%>},
+  
+<% } %>
+<% } %>
+
+
+
+],
+  // The name of the data record attribute that contains x-values.
+  xkey: 'dia',
+  // A list of names of data record attributes that contain y-values.
+  ykeys: ['Muertos'],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Muertos'],
+  resize:true
+});
+</script>
+
+
+    
   </body>
 </html>

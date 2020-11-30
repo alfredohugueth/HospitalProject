@@ -67,52 +67,139 @@ controller.ayudante = (req,res) =>{
     var data2;
     var data3;
     var data4;
-controller.medico = (req, res) => {
+    controller.medico = (req, res) => {
   
   
 
-  req.getConnection((err, conn) => {
-   
-    conn.query("SELECT COUNT(*) FROM registro_casos WHERE sexo = ? ", ["MASCULINO"], (err, rows) => {
-     data0= rows
-    console.log(data0);
-    
-    });
-   conn.query("SELECT COUNT(*) FROM registro_casos  ", (err, rows) => {
-      data1 =rows
-       console.log(rows);
-    
-    });
-    conn.query("SELECT COUNT(*) FROM registro_casos WHERE sexo = ?", ["FEMENINO"], (err, rows) => {
+      req.getConnection((err, conn) => {
+       
+        conn.query("SELECT COUNT(*) FROM registro_casos WHERE sexo = ? ", ["MASCULINO"], (err, rows) => {
+         data0= rows
+        console.log(data0);
+        
+        });
+       conn.query("SELECT COUNT(*) FROM registro_casos  ", (err, rows) => {
+          data1 =rows
+           console.log(rows);
+        
+        });
+        conn.query("SELECT COUNT(*) FROM registro_casos WHERE sexo = ?", ["FEMENINO"], (err, rows) => {
+          
+          data2= rows;    
+         console.log(rows);
       
-      data2= rows;    
-     console.log(rows);
-  
-    });
-  conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["POSITIVO"], (err, rows) => {
-       
-       
-        data3= rows
+        });
+      conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["POSITIVO"], (err, rows) => {
+           
+           
+            data3= rows
+          
+          console.log(rows);
+    
+      });
+      conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual = ?", ["P/Muerto"], (err, rows) => {
+           
+           
+        data5= rows
       
       console.log(rows);
-
-  });
-  conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["NEGATIVO"], (err, rows) => {
     
-    res.render('index', {
-      data4: rows,
-      data0,
-      data1,
-      data2,
-      data3,
-    }) 
+    });
+    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual = ?", ["P/Curado"], (err, rows) => {
+           
+           
+      data6= rows
     
-   console.log(rows);
-   
-   });
-});
-
-};
+    console.log(rows);
+    
+    });
+    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? or Estado_Actual = ? or Estado_Actual = ?", ["P/Tratamiento en hospital","P/Tratamiento en casa","P/En UCI"], (err, rows) => {
+           
+           
+      data7= rows
+    
+    console.log(rows);
+    
+    });
+    
+    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/Tratamiento en hospital"], (err, rows) => {
+           
+           
+      data8= rows
+    
+    console.log(rows);
+    
+    });
+    conn.query("SELECT COUNT(*) FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/Tratamiento en casa"], (err, rows) => {
+           
+           
+      data9= rows
+    
+    console.log(rows);
+    
+    });
+    
+    conn.query("SELECT COUNT(*)    FROM estados_UsuariosAlfre WHERE Estado_Actual =  ? ", ["P/En UCI"], (err, rows) => {
+           
+           
+      data10= rows
+    
+    console.log(rows);
+    
+    });
+    
+    conn.query("SELECT  COUNT(*) FROM estados_UsuariosAlfre ",  (err, rows) => {
+           
+           
+      data11= rows
+    
+    console.log(rows);
+    
+    });
+    
+    conn.query("select fecha_examen, count(*) as resultado_examen from registro_casos where resultado_examen=? group by fecha_examen order by fecha_examen limit 7", ["POSITIVO"],  (err, rows) => {
+           
+           
+      data12= JSON.parse(JSON.stringify(rows))
+    
+    console.log(rows);
+    
+    });
+    
+    conn.query("select fecha_Actual, count(*) as Estado_Actual from estados_UsuariosAlfre where Estado_actual=? group by fecha_Actual", ["P/Muerto"],  (err, rows) => {
+           
+           
+      data13= rows
+    
+    console.log(rows);
+    
+    });
+      conn.query("SELECT COUNT(*) FROM registro_casos WHERE resultado_examen = ?", ["NEGATIVO"], (err, rows) => {
+        
+        res.render('index', {
+          data4: rows,
+          data0,
+          data1,
+          data2,
+          data3,
+          data6,
+          data5,
+          data7,
+          data10,
+          data9,
+          data11,
+          data12,
+          data13,
+    
+        }) 
+        
+       console.log(rows);
+       
+       });
+    });
+    
+    };
+    
 controller.save = (req, res) => {
   const data = req.body;
   console.log(req.body);
