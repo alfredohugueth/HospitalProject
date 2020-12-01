@@ -1,6 +1,7 @@
 let infoCliente;
 let idPasiente;
 let estado;
+let resultadoE;
 let opciones ={
     method: 'POST'
 };

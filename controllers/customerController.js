@@ -328,6 +328,7 @@ controller.busqueda = (req,res) =>{
       //res.json(rows);
         datoscliente = rows;
         idrec = rows[0].codigo_caso;
+        // Verificamos el valor 
       }
       }
     })

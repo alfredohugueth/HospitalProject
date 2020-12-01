@@ -29,11 +29,14 @@ formuActualiza.addEventListener('submit',event =>{
     }
     //console.log(estado);
     // Esto es para pushear el merge.
-    if(estado == "P/Muerto"){
-        alert("Usuario Muerto, no es posible realizar actualización");
+    if(resultadoE == 'NEGATIVO'){   
+        alert("No es posible actualizar, paciente con resultado negativo.");
     }else{
+        if(estado == "P/Muerto"){
+            alert("Usuario Muerto, no es posible realizar actualización");
+        }else{
         estado = estadActu;
-    fetch('/actualizarEstado',opcionEnvio).then((response) => response.json())
+        fetch('/actualizarEstado',opcionEnvio).then((response) => response.json())
 				.then((json) => {
                     console.log(json);
                     //document.getElementById("est").innerHTML = estadActu;
@@ -57,4 +60,6 @@ formuActualiza.addEventListener('submit',event =>{
                     }
                 });
             }
+        }
+    
 })
