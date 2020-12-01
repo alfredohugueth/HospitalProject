@@ -29,6 +29,7 @@ formuActualiza.addEventListener('submit',event =>{
     }
     //console.log(estado);
     // Esto es para pushear el merge.
+    //Mas merge
     if(resultadoE == 'NEGATIVO'){   
         alert("No es posible actualizar, paciente con resultado negativo.");
     }else{
