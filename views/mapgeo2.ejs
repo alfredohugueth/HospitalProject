@@ -27,7 +27,7 @@
       
       }
       </script>
-      <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9t2ZsrarU4KQl7fZl6Yr2vkS3dckb_KY&callback=initMap&libraries=&v=weekly">
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9t2ZsrarU4KQl7fZl6Yr2vkS3dckb_KY">
     </script>
 
       <!-- camvas dona-->
@@ -163,65 +163,90 @@
                     #map {
                       height: 560px;
                     }
+                    #legend {
+                      font-family: Arial, sans-serif;
+                      background: #fff;
+                      padding: 10px;
+                      margin: 10px;
+                      border: 3px solid #000;
+                    }
                   </style>
-                      <script>
-                        function initMap() {
-                          const map = new google.maps.Map(document.getElementById("map"), {
+                  <div class="col-md-12 col-sm-12 "> 
+                    <div id="map"></div>
+                    <div id="legend"><h3>Leyenda</h3></div>
+                  </div>
+
+
+                      <script type="text/javascript">
+                        
+                        var delay=100;
+                        var infoWindow = new google.maps.InfoWindow();
+                        var geocoder = new google.maps.Geocoder();
+                        const map = new google.maps.Map(document.getElementById("map"), {
                             zoom: 8,
                             center: { lat: 10.9932, lng: -74.8049 },
-                          });
-                          const geocoder = new google.maps.Geocoder();
-                          geocodeAddress(geocoder, map);
-                        }
+                          });       
+                          var iconBase = "http://maps.google.com/mapfiles/ms/icons/";
+                          var icons = {
+                            green: {
+                              name: "Caso Negativo",
+                              icon: iconBase + "green-dot.png",
+                            },
+                            yellow: {
+                              name: "Tratamiento en Casa",
+                              icon: iconBase + "yellow-dot.png",
+                            },
+                            orange: {
+                              name: "En UCI",
+                              icon: iconBase + "orange-dot.png",
+                            },
+                            pink: {
+                              name: "Curado",
+                              icon: iconBase + "pink-dot.png",
+                            },
+                            red: {
+                              name: "Muerto",
+                              icon: iconBase + "red-dot.png",
+                            },
+                          }
+                          var legend = document.getElementById("legend");
+                          for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement("div");
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+                          map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);  
+
+                          
 
                         function updateMap() {   
                           document.getElementById("submit").addEventListener("click", () => {
-                          geocodeAddress(geocoder, map);
+                          aver();
                           });
                         }
 
-                        function geocodeAddress(geocoder, resultsMap) {
-                          var nomg="<%= nom %>";
-                          var dirg="<%= dir %>";
-                          var noms=nomg.split(",");
-                          var dirs=dirg.split(",");
-                          var datag=[<%= data %>];
-                          console.log(datag);
-                          console.log(noms);
-                          markers = [];
-                          for (let i = 0; i < datag.length; i++) {
-                            markers[i]=0
-                          }
-                          infoWindow = new google.maps.InfoWindow();
-                          for (let i = 0; i < datag.length; i++) {
-                            var address = dirs[i];
-                            console.log(address);
-                            console.log("i: "+i);
-                            geocoder.geocode({ address: address }, (results, status) => {
-                              console.log("i: "+i);
+                        function getAddress(address,next){
+                          console.log("Dirección a graficar: "+address+", correspondiente nombre: "+noms[count-1]);
+                          geocoder.geocode({address:address}, (results,status) => {
+                            if (status=="OK"){
                               console.log("results: "+Object.values(results[0]));
-                              if (status === "OK") {
-                                resultsMap.setCenter(results[0].geometry.location);
+                                map.setCenter(results[0].geometry.location);
+                                console.log("Data entrante: "+(count-1)+" "+datag[count-1]+noms[count-1]);
+                                colormarker(datag[count-1],results,map,noms[count-1]);
                                 
-                                console.log("Data entrante: "+i+" "+datag[i]+noms[i]);
-                                cb = colormarker(datag[i],results,resultsMap,noms[i]);
-                                var marker=cb[0];
-                                var nombre=cb[1];
-                                console.log("Data a empujar: "+results+nombre);
-                                markers[i]=marker;
-                                
-                                console.log(markers);
-                                
-                                marker.addListener("mouseover", () => {
-                                  infoWindow.setContent(noms[i]);
-                                  infoWindow.open(resultsMap,markers[i]);
-                                });
-                              } else {
-                                alert("Geocode was not successful for the following reason: " + status);
-                              }
-                            });
-                          }
+                            } else if (status =="OVER_QUERY_LIMIT") {
+                              count--;
+                              delay++;
+                            } else {
+                              alert("Geocode was not successful for the following reason: " + status);
+                            }
+                            next();
+                          });
                         }
+
                         function colormarker(estado,results,resultsMap,nombre) {
                           if (estado==0){
                            var marker = new google.maps.Marker({
@@ -229,20 +254,32 @@
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
                             }); 
+                           google.maps.event.addListener(marker, 'mouseover', function() {
+         infoWindow.setContent(nombre); 
+         infoWindow.open(resultsMap,marker);
+       });
                           } else
                           if (estado==2 || estado==3){
                            var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-                            }); 
+                            });
+                            google.maps.event.addListener(marker, 'mouseover', function() {
+         infoWindow.setContent(nombre); 
+         infoWindow.open(resultsMap,marker);
+         }); 
                           } else
                           if (estado==4){
                            var marker = new google.maps.Marker({
                               map: resultsMap,
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png'
-                            }); 
+                            });
+                            google.maps.event.addListener(marker, 'mouseover', function() {
+         infoWindow.setContent(nombre); 
+         infoWindow.open(resultsMap,marker);
+       }); 
                           } else
                           if (estado==5){
                            var marker = new google.maps.Marker({
@@ -250,6 +287,10 @@
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'
                             }); 
+                           google.maps.event.addListener(marker, 'mouseover', function() {
+         infoWindow.setContent(nombre); 
+         infoWindow.open(resultsMap,marker);
+       });
                           } else
                           if (estado==6){
                            var marker = new google.maps.Marker({
@@ -257,17 +298,40 @@
                               position: results[0].geometry.location,
                               icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
                             }); 
+                           google.maps.event.addListener(marker, 'mouseover', function() {
+         infoWindow.setContent(nombre); 
+         infoWindow.open(resultsMap,marker);
+       });
                           }
-                          return [marker,nombre];
                         }
                         
+                        var nomg="<%= nom %>";
+                        var dirg="<%= dir %>";
+                        var noms=nomg.split(",");
+                        var dirs=dirg.split(",");
+                        var datag=[<%= data %>];
+                        console.log(noms);
+                        console.log(dirs);
+                        console.log(datag);
+                        var count=0;
+
+
+                        function aver(){
+                          if(count<dirs.length){
+                            console.log("conteo antes de función: "+(count-1));
+                            setTimeout('getAddress("'+dirs[count]+'",aver)',delay);
+                            count++;
+                            console.log("conteo después de función: "+(count-1));
+                          } else {
+                            console.log("Se han mostrado todos.");
+                          }
+                        }
+                        
+                        aver();
 
                       </script>
-                  <div class="col-md-12 col-sm-12 ">
-                    <div id="floating-panel">
-                      <input id="submit" type="button" value="Actualizar" />
-                    </div>
-                    <div id="map"></div>
+                  
+                  <div class="col-md-3 col-sm-3">
                   </div>
                 </div>
               </div>
