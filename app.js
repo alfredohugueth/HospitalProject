@@ -1,3 +1,5 @@
+// Desarrollado por Alfredo Hugueth, Miguel Sanchez, Ezequiel Mantilla, Paul Masson
+
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
